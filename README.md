@@ -17,11 +17,11 @@ Here is a preview of the project, showcasing the effect on different backgrounds
 
 | Static Preview (Leaves) | Static Preview (Windows) |
 | :---: | :---: |
-| <img src="./leaves_screenshot.png"> | *Your second screenshot here* |
+| <img src="./leaves_screenshot.png"> | <img src="./windows_screenshot.png"> |
 
 | Static Preview (Mountains) | Interactive Controls |
 | :---: | :---: |
-| *Your third screenshot here* | *Your fourth screenshot here* |
+| <img src="./mountains_screenshot.png"> | <img src="./controls_screenshot.png"> |
 
 ***Note:*** *To add your screenshots, create a folder named `screenshots` in your repository, add your images (e.g., `preview1.png`, `controls.png`), and update the paths above.*
 
