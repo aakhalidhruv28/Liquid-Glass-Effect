@@ -17,7 +17,7 @@ Here is a preview of the project, showcasing the effect on different backgrounds
 
 | Static Preview (Leaves) | Static Preview (Windows) |
 | :---: | :---: |
-| *Your first screenshot here* | *Your second screenshot here* |
+| <img src="./leaves_screenshot.png"> | *Your second screenshot here* |
 
 | Static Preview (Mountains) | Interactive Controls |
 | :---: | :---: |
