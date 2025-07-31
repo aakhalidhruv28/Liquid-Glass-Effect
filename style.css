@@ -1,30 +1,36 @@
-/* --- CSS Custom Properties (Variables) --- */
+/* --- CSS Custom Properties (Defaults) --- */
 :root {
-    --glass-blur: 15px;
-    --glass-alpha: 0.1;
-    --glass-size: 20rem;
-    --glass-border-radius: 50%;
-    --glass-border-width: 2px;
+    --glass-blur: 10px;
+    --glass-saturation: 100%;
+    --glass-contrast: 100%;
+    --glass-size: 22rem;
+    --glass-border-width: 1px;
     --glass-icon-color: #ffffff;
+    --glass-tint-color: 255, 255, 255; /* Stored as R,G,B values */
+    --glass-tint-alpha: 0.15;
     --shadow-opacity: 1;
 }
 
 /* --- General Styling --- */
 html, body { height: 100%; min-height: 200vh; margin: 0; font-family: system-ui, sans-serif; overflow-x: hidden; }
-.bg { position: absolute; inset: 0; z-index: -1; } /* [10] */
-.bg img { width: 100%; object-fit: cover; display: block; } /* [10] */
+.bg { position: absolute; inset: 0; z-index: -1; }
+.bg img { width: 100%; object-fit: cover; display: block; }
 
 /* --- Glass Element Styling --- */
 .glass, .glass-link {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: var(--glass-size); height: var(--glass-size);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    background: rgba(255, 255, 255, var(--glass-alpha));
-    border-radius: var(--glass-border-radius);
-    border: var(--glass-border-width) solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, calc(0.6 * var(--shadow-opacity))), 
-                0 16px 32px rgba(0, 0, 0, calc(0.12 * var(--shadow-opacity)));
+    border-radius: 50%; /* Fixed border-radius for a consistent look */
+    
+    /* The core of the effect */
+    background: rgba(var(--glass-tint-color), var(--glass-tint-alpha));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation)) contrast(var(--glass-contrast));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation)) contrast(var(--glass-contrast));
+    
+    border: var(--glass-border-width) solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+                0 0 0 1px rgba(255, 255, 255, 0.4),
+                0 8px 32px rgba(0, 0, 0, calc(0.25 * var(--shadow-opacity)));
     display: grid; place-items: center; cursor: pointer; outline: 0;
     transition: all 0.2s ease-out;
 }
@@ -34,46 +40,27 @@ html, body { height: 100%; min-height: 200vh; margin: 0; font-family: system-ui,
 
 /* '+' Icon Styling */
 .glass::before, .glass::after, .glass-link::before, .glass-link::after {
-    content: ""; position: absolute; width: 40%; height: 10px;
-    background: var(--glass-icon-color); border-radius: 10px;
+    content: ""; position: absolute; width: 40%; height: 8px;
+    background: var(--glass-icon-color); border-radius: 8px;
 }
 .glass::after, .glass-link::after { transform: rotate(90deg); }
 
-/* --- Instruction & Footer Styling (index.html) --- */
-.instruction-text {
-    position: fixed; bottom: 80px; left: 50%;
-    transform: translateX(-50%);
-    color: white; background: rgba(0,0,0,0.5);
-    padding: 10px 20px; border-radius: 10px; text-align: center;
-}
-.dev-footer {
-    position: fixed; bottom: 20px; width: 100%; text-align: center;
-    color: #eee; font-size: 14px;
-}
+/* --- Instruction & Footer Styling --- */
+.instruction-text { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); color: white; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 10px; text-align: center; }
+.dev-footer { position: fixed; bottom: 20px; width: 100%; text-align: center; color: #eee; font-size: 14px; }
 .dev-footer a { color: #fff; text-decoration: none; font-weight: bold; }
 .dev-footer a:hover { text-decoration: underline; }
 
 /* --- Controls Panel Styling --- */
-#controls-panel {
-    position: fixed; top: 20px; left: 20px;
-    background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(10px);
-    color: white; padding: 15px; border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 100; width: 280px;
-}
+#controls-panel { position: fixed; top: 20px; left: 20px; background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(10px); color: white; padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 100; width: 280px; }
 #panel-header { padding: 8px; cursor: grab; text-align: center; background-color: rgba(255,255,255,0.1); margin: -15px -15px 15px -15px; border-radius: 12px 12px 0 0; }
 .control-group { margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
 .main-toggle { padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.2); }
 input[type="range"] { width: 120px; }
 input[type="color"] { width: 40px; height: 28px; padding: 0; border: none; background: none; }
-.actions { display: flex; justify-content: center; align-items: center; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2); }
-#home-link {
-    padding: 8px 16px; border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.2); color: white; border-radius: 8px;
-    cursor: pointer; transition: background 0.2s; font-size: 14px;
-    text-decoration: none; text-align: center;
-}
-#home-link:hover { background: rgba(255, 255, 255, 0.4); }
+.actions { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.2); }
+#reset-btn, #home-link { padding: 8px 16px; border: 1px solid rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.2); color: white; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-size: 14px; text-decoration: none; text-align: center; }
+#reset-btn:hover, #home-link:hover { background: rgba(255, 255, 255, 0.4); }
 
 /* Custom Toggle Switch CSS */
 .switch{position:relative;display:inline-block;width:50px;height:28px}.switch input{opacity:0;width:0;height:0}.slider-toggle{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s;border-radius:28px}.slider-toggle:before{position:absolute;content:"";height:20px;width:20px;left:4px;bottom:4px;background-color:#fff;transition:.4s;border-radius:50%}input:checked+.slider-toggle{background-color:#6675f7}input:checked+.slider-toggle:before{transform:translateX(22px)}
