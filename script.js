@@ -121,4 +121,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Initial Call on page load ---
     updateAllStyles();
-}); 
+});
